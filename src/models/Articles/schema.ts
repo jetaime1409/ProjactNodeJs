@@ -24,7 +24,7 @@ const articleSchema = new Schema<ArticleSchemaWithDocument>({
         required: true
     },
     author:{
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'User',
         required: true
 

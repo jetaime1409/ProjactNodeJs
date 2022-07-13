@@ -35,7 +35,7 @@ GET {{baseUrl}}/users/profile
 
 ###
 POST  {{baseUrl}}/auth/refresh-token
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTc2MjMzMTAsImV4cCI6MTY1NzYyMzYxMCwiYXVkIjoiNjJjYzc0ODEyOWI4MzlhMTdkZDcwMzUzIn0.RpwOVshlMC8YBmYI6l6K5lV-j4nMDfWC2wkxNeCXE54
+{{authAccessToken}}
 
 ###
 POST {{baseUrl}}/articles
@@ -43,8 +43,8 @@ POST {{baseUrl}}/articles
 {{authAccessToken}}
 
 {
-    "title": "Test 1",
-    "description": "more Detail"
+    "title": "Test 7",
+    "description": "more Detail7"
 }
 
 ###
@@ -53,7 +53,8 @@ GET {{baseUrl}}/articles
 {{authAccessToken}}
 
 ###
-GET {{baseUrl}}/articles/id
+### GET {{baseUrl}}/articles/id
+GET {{baseUrl}}/articles/62cf44332b52727cba9693a4
 {{contentType}}
 {{authAccessToken}}
 
@@ -65,7 +66,7 @@ PATCH {{baseUrl}}/articles/id
 {}
 
 ###
-DELETE {{baseUrl}}/articles/id
+DELETE {{baseUrl}}/articles/62cf48de8e25a31401ccc433
 {{contentType}}
 {{authAccessToken}}
 
