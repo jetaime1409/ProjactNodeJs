@@ -2,6 +2,7 @@ import { FastifyRequest } from "fastify";
 
 export type ArticleRequestBody = FastifyRequest<{
     Body:{
+        
         title: string
         description: string
         status: string

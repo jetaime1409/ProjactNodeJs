@@ -17,7 +17,7 @@ const buildApp =  (options: FastifyServerOptions) =>{
     app.get('/', async()=> 'welcom to my api' )
     app.register(authRouters ,{ prefix: '/auth' })
     app.register(userRouters ,{ prefix: '/users' })
-    app.register(articleRouters ,{ prefix: '/articles' })
+    app.register(articleRouters ,{ prefix:'/articles'})
 
 
     app.setErrorHandler((error,reques,reply)=>{ 

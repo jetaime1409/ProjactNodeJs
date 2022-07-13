@@ -1,16 +1,23 @@
 import { FastifyInstance } from "fastify"
-import articleHendlers from '../handlers/article'
+import articleHandlers from '../handlers/article'
 import { verifyAccessToken } from '../hooks/auth'
 
 const articleRouters = async (app: FastifyInstance) =>{
     const preHandler = [verifyAccessToken]
 
-    app.post('/',{ preHandler } ,articleHendlers.handlePostCreateNew)
-    app.get('/',{ preHandler } ,articleHendlers.handleGetArticle)
-    app.get('/:id',{ preHandler } ,articleHendlers.handleGetArticleById)
-    app.patch('/:id',{ preHandler } ,articleHendlers.handlePathUpdateArticleById)
-    app.delete('/id',{ preHandler } ,articleHendlers.handleDeleteArticleById)
-         
+
+    /**
+     * Get /articles
+     */
+    app.post('/',{ preHandler } ,articleHandlers.handlePostCreateNew) 
+    app.get('/',{ preHandler } ,articleHandlers.handleGetArticles) 
+    app.get('/:id',{ preHandler } ,articleHandlers.handleGetArticleById) 
+    // app.patch('/:id',{ preHandler } ,articleHandlers.handlePatchUpdateArticleById) หาวิธีแก้ error ยังไม่ได้
+    app.delete('/:id',{ preHandler } ,articleHandlers.handleDeleteArticleById) 
+
+ 
+
+        
     
 }
 

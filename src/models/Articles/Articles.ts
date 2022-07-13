@@ -4,7 +4,8 @@ import Articles, {ArticleSchema,ArticleSchemaWithDocument} from './schema'
 
 
 export type {
-    ArticleSchemaWithDocument
+    ArticleSchemaWithDocument,
+    ArticleSchema
 }
 
 export const createNewArticle = async (doc: ArticleSchema): Promise<ArticleSchemaWithDocument> =>{
@@ -14,7 +15,7 @@ return artical.save()
 }
 
 export const getArticles = async (condition: any ={}): Promise<ArticleSchema[]> =>{
-    const articles =Articles
+    const articles = await Articles
     .find({
         ...condition,
         status:'active'
@@ -28,20 +29,27 @@ export const getArticles = async (condition: any ={}): Promise<ArticleSchema[]> 
 }
 
 export const getArticleById = async (articleId: string): Promise<ArticleSchema> =>{
-    const articles =Articles
-    .findOne({
-        _id: articleId,
-        status:'active'
-    })
-    .lean<ArticleSchema>()
+    try{
+    const articles = await Articles
+        .findOne({
+            _id: articleId,
+            status: 'active'
+        })
+        .lean<ArticleSchema>()
 
-    return articles
+        return articles
+    } catch (error) {
+        if(error === 'ObjectId'){
+            return customError(articleErrors.ArticleIdInvalid)
+
+        }
+            return customError(articleErrors.ArticleSomethingWentWrong)
+
+    }
 }
 
 export const updatedArticleById = async (articleId: string, doc: ArticleSchema): Promise<boolean> =>{
-    try{
-        Object.keys(doc).filter(key=> doc[key] ?? delete doc[key])
-
+    try{   
         const result = await Articles
             .updateOne({
                 _id:articleId,
@@ -60,10 +68,8 @@ export const updatedArticleById = async (articleId: string, doc: ArticleSchema):
             }
             return true
     } catch (error){
-        if (error.kind === 'ObjactId'){
+        if (error === 'ObjactId'){
             return customError(articleErrors.ArticleIdInvalid)
-        }else if (error.name === 'CustomError') {
-            return error
         }
         return customError(articleErrors.ArticleSomethingWentWrong)
     }
@@ -75,7 +81,7 @@ export const softDeleteArticleById = async (articleId: string): Promise<boolean>
         await Articles
             .findByIdAndUpdate(articleId,{
                 $set:{
-                    status:'deleted'
+                    status: 'deleted'
                 } 
             })
         return true
