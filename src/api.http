@@ -1,0 +1,82 @@
+@baseUrl = http://localhost:4000
+@authAccessToken = Authorization: Bearer {{authLogin.response.body.$.accessToken}}
+@contentType = Content-Type: application/json
+
+Get {{baseUrl}}
+
+###
+
+# @name authLogin
+POST {{baseUrl}}/auth/login
+{{contentType}}
+
+{
+    "username": "Gino",
+    "password": "123456"
+}
+
+###
+POST {{baseUrl}}/auth/register
+{{contentType}}
+
+{
+    "username": "Ginoa",
+    "password": "123456",
+    "email": "thatishayanona@hotmail.com",
+    "name": "thatishayanon",
+    "surname": "Witthayawathanon"
+    
+}
+###
+
+GET {{baseUrl}}/users/profile
+{{authAccessToken}}
+
+
+###
+POST  {{baseUrl}}/auth/refresh-token
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTc2MjMzMTAsImV4cCI6MTY1NzYyMzYxMCwiYXVkIjoiNjJjYzc0ODEyOWI4MzlhMTdkZDcwMzUzIn0.RpwOVshlMC8YBmYI6l6K5lV-j4nMDfWC2wkxNeCXE54
+
+###
+POST {{baseUrl}}/articles
+{{contentType}}
+{{authAccessToken}}
+
+{
+    "title": "Test 1",
+    "description": "more Detail"
+}
+
+###
+GET {{baseUrl}}/articles
+{{contentType}}
+{{authAccessToken}}
+
+###
+GET {{baseUrl}}/articles/id
+{{contentType}}
+{{authAccessToken}}
+
+###
+PATCH {{baseUrl}}/articles/id
+{{contentType}}
+{{authAccessToken}}
+
+{}
+
+###
+DELETE {{baseUrl}}/articles/id
+{{contentType}}
+{{authAccessToken}}
+
+
+
+
+
+
+
+
+
+
+
+
