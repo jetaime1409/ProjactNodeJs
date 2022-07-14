@@ -38,13 +38,15 @@ POST  {{baseUrl}}/auth/refresh-token
 {{authAccessToken}}
 
 ###
+#############################################################3
+### Articles
 POST {{baseUrl}}/articles
 {{contentType}}
 {{authAccessToken}}
 
 {
-    "title": "Test 7",
-    "description": "more Detail7"
+    "title": "Test 8",
+    "description": "more Detail8"
 }
 
 ###
@@ -53,7 +55,6 @@ GET {{baseUrl}}/articles
 {{authAccessToken}}
 
 ###
-### GET {{baseUrl}}/articles/id
 GET {{baseUrl}}/articles/62cf44332b52727cba9693a4
 {{contentType}}
 {{authAccessToken}}
